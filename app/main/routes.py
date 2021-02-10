@@ -11,7 +11,6 @@ from app.models import User, Post, Message, Notification
 from app.translate import translate
 from app.main import bp
 
-
 @bp.before_app_request
 def before_request():
     if current_user.is_authenticated:
@@ -225,3 +224,13 @@ def notifications():
         'data': n.get_data(),
         'timestamp': n.timestamp
     } for n in notifications])
+
+@bp.route('/applications')
+@login_required
+def applications():
+    apps=['app1','app2']
+    #TODO: return a list of apps this user is authorized to run
+    return render_template('applications.html', apps=apps)
+
+#next section should deal with app1 and app2
+#do they get their own routes?
